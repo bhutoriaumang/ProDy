@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+    <!-- <script src="app.js"></script> -->
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- LOGIN DIV -->
+
+    <div id="login_div" class="main-div">
+      <h3>Login</h3>
+      <input type="email" placeholder="Email..." id="email_field"  />
+      <input type="password" placeholder="Password..." id="password_field" />
+
+      <button onclick="login()" >Login krlo</button>
+      <button onclick="signup()" >Sign Up</button>
+    </div>
+
+    <!-- SIGN UP PAGE -->
+
+    <div id="sign_up" class="main-div">
+      <input type="email" placeholder="Email..." id="newemail_field" />
+      <input type="password" placeholder="Password..." id="newpassword_field" />
+      <select name="pos" id="newpos_field">
+        <option value="0">Employee</option>
+        <option value="1">Manager</option>
+      </select>
+
+      <button onclick="create()">SignUp</button>
+    </div>
+
+
+    <!-- EMPLOYEE LOGIN -->
+
+    <div id="user_div" class="loggedin-div">
+      <h3>Welcome User</h3>
+      <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+      <ul id="tasks">
+        <!-- Tasks to do are entered here -->
+      </ul>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+
+    <!-- MANAGER LOGIN PAGE -->
+
+
+    <div id="manager-login" class="loggedin-div">
+      <h3>Welcome User</h3>
+      <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+      <ul id="employee-details">
+        <!-- Tasks to do are entered here -->
+      </ul>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+
+
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyC_6WUcMYj5XMJdEprbluFlYDFbBWWY9GI",
+        authDomain: "demotechnicia.firebaseapp.com",
+        projectId: "demotechnicia",
+        storageBucket: "demotechnicia.appspot.com",
+        messagingSenderId: "285617075463",
+        appId: "1:285617075463:web:15c364e583ffca5c1001a2",
+        measurementId: "G-GH5QPGK4VC"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      db.settings({ timestampsInSnapshots: true })
+      firebase.analytics();
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>
