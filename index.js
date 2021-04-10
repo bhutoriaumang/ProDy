@@ -233,9 +233,9 @@ function manager(){
       let title = data.Title;
       const li = document.createElement('li');
       const div = document.createElement('div');
-      const div1 = document.createElement('div');
-      const div2 = document.createElement('div');
-      const div3 = document.createElement('div');
+      const div1 = document.createElement('div');//Title div
+      const div2 = document.createElement('div');//Tasks div
+      const div3 = document.createElement('div');//Employees div
       div.className = "Project";
       div1.className = "Title_project";
       div2.className = "tasks_project";
@@ -265,18 +265,18 @@ function manager(){
       div.appendChild(div1);
       div.appendChild(div2);
       div.appendChild(div3);
-      div2.style.display = 'none';
-      div3.style.display = 'none';
-      div.onclick = function(){
-        if(div2.style.display == 'none'){
-          div2.style.display = 'block';
-          div3.style.display = 'block';
-        }
-        else{
-          div2.style.display = 'none';
-          div3.style.display = 'none';
-        }
-      };
+      // div2.style.display = 'none';
+      // div3.style.display = 'none';
+      // div.onclick = function(){
+      //   if(div2.style.display == 'none'){
+      //     div2.style.display = 'block';
+      //     div3.style.display = 'block';
+      //   }
+      //   else{
+      //     div2.style.display = 'none';
+      //     div3.style.display = 'none';
+      //   }
+      // };
       list.append(div);
     })
   })
@@ -401,13 +401,14 @@ function createProject(title,tasks,employees){
       index = 0;
       db.collection('employees').onSnapshot(snapshot =>{
         let changes = snapshot.docChanges();
+        console.log(changes);
         changes.forEach(change=>{
           let data = change.doc.data();
           if(employees.includes(data.id)){
             let tt = tasks.concat(data.tasks);
             let p = [docref.id];
             p = p.concat(data.projects);
-            // return db.collection('employees').doc(data.id).update({
+            // db.collection('employees').doc(data.id).update({
             //   tasks: tt,
             //   projects: p,
             // })
@@ -427,7 +428,9 @@ function getemployee(uid){
   })
 }
 
+function chart(per){
 
+}
 
 
 
