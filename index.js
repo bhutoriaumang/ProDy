@@ -289,29 +289,56 @@ function create_inputtask(){
 
   const div = document.getElementById("Add_tasks");
   const input = document.createElement('input');
+  const divv = document.createElement('div');
   const button = document.createElement('button');
   input.placeholder = "Task";
   button.innerHTML = "Add task";
   button.onclick = function(){
     t.push(input.value);
+    divv.style.display = 'none';
     create_inputtask();
   }
-  div.appendChild(input);
-  div.appendChild(button);
+  divv.appendChild(input);
+  divv.appendChild(button);
+  div.appendChild(divv);
 }
 function create_inputemployee(){
 
   const div = document.getElementById("Add_employee");
-  const input = document.createElement('input');
+  const divv = document.createElement('div');
+  const input = document.createElement('select');
   const button = document.createElement('button');
-  input.placeholder = "Employee id";
+  db.collection('employees').onSnapshot(snapshot =>{
+    let changes = snapshot.docChanges();
+    changes.forEach(change =>{
+      let data = change.doc.data();
+      let index = 0;
+      let f=1;
+      while(index<e.length){
+        if(e[index]==data.id){
+          f = 0;
+          break;
+        }
+        index++;
+      }
+      console.log(f+" "+data.id+" dwkmlcsdm12313212 "+e);
+      if(f==1){
+        const option = document.createElement('option');
+        option.text = data.email;
+        option.value = data.id;
+        input.appendChild(option);
+      }
+    })
+  })
   button.innerHTML = "Add employee";
   button.onclick = function(){
     e.push(input.value);
+    divv.style.display = 'none';
     create_inputemployee();
   }
-  div.appendChild(input);
-  div.appendChild(button);
+  divv.appendChild(input);
+  divv.appendChild(button);
+  div.appendChild(divv);
 }
 
 function project(){
@@ -325,6 +352,10 @@ function project(){
   const div = document.getElementById('newproject');
   button.innerHTML = 'Submit';
   button.onclick = function(){
+    document.getElementById('Add_tasks').innerHTML = "";
+    document.getElementById('Add_employee').innerHTML = "";
+    title_input.remove();
+    button.remove();
     createProject(title_input.value,t,e);
   };
   div.appendChild(title_input);
@@ -344,7 +375,12 @@ function createProject(title,tasks,employees){
   })
 }
 
-
+function getemployee(uid){
+  db.collection('employees').doc(uid).get().then(doc =>{
+    console.log(doc.data().email);
+    return doc.data().email;
+  })
+}
 
 
 
