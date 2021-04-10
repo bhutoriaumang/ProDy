@@ -113,6 +113,10 @@ footer a:hover, nav a:hover {
 footer {
   background-color:rgba(256,0.2,0.2,0.2);
   overflow: hidden;
+  margin-top: 7vh;
+  width: 100%;
+  bottom: 0;
+  right:100;
 }
 nav{
   background-color:rgba(260,0.2,0.2,0.2);
