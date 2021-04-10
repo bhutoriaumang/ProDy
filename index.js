@@ -291,6 +291,8 @@ function create_inputtask(){
   const input = document.createElement('input');
   const divv = document.createElement('div');
   const button = document.createElement('button');
+  input.className = 'task_selection';
+  button.className = 'task_selection_button';
   input.placeholder = "Task";
   button.innerHTML = "Add task";
   button.onclick = function(){
@@ -313,6 +315,8 @@ function create_inputemployee(){
   const divv = document.createElement('div');
   const input = document.createElement('select');
   const button = document.createElement('button');
+  input.className = 'employee_selection';
+  button.className = 'employee_selection_button';
   db.collection('employees').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
     changes.forEach(change =>{
@@ -356,8 +360,8 @@ function project(){
   title_input.placeholder = 'Enter title of prorject';
   t = [];
   e = [];
-  var tasks = create_inputtask([]);
-  var employees = create_inputemployee([]);
+  create_inputtask([]);
+  create_inputemployee([]);
   const button = document.createElement('button');
   const div = document.getElementById('newproject');
   button.innerHTML = 'Submit';
@@ -385,7 +389,32 @@ function createProject(title,tasks,employees){
     tasks: tasks,
     employees: employees
   }).then((docref)=>{
-    console.log(docref.id);
+      let index = 0;
+      while(index<tasks.length){
+        db.collection('tasks').add({
+          task: tasks[index],
+          project: docref.id,
+          employees: employees
+        });
+        index++;
+      }
+      index = 0;
+      db.collection('employees').onSnapshot(snapshot =>{
+        let changes = snapshot.docChanges();
+        changes.forEach(change=>{
+          let data = change.doc.data();
+          if(employees.includes(data.id)){
+            let tt = tasks.concat(data.tasks);
+            let p = [docref.id];
+            p = p.concat(data.projects);
+            // return db.collection('employees').doc(data.id).update({
+            //   tasks: tt,
+            //   projects: p,
+            // })
+            console.log(tt+" "+p);
+          }
+        })
+      })
   }).catch((error)=>{
     console.log("Error adding document "+error);
   })
@@ -393,8 +422,8 @@ function createProject(title,tasks,employees){
 
 function getemployee(uid){
   db.collection('employees').doc(uid).get().then(doc =>{
-    console.log(doc.data().email);
-    return doc.data().email;
+    console.log(doc.data());
+    return doc.data();
   })
 }
 
