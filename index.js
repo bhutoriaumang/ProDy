@@ -1,3 +1,5 @@
+var pos = -1;
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -11,19 +13,18 @@ firebase.auth().onAuthStateChanged(function(user) {
     var user = firebase.auth().currentUser;
 
     if(user != null){
-      var pos;
       db.collection('employees').doc(user.uid).get().then(doc =>{
         try{
           pos = doc.data().position;
         }
         catch(err){
-          pos = 1;
+          pos = document.getElementById("newpos_field").value;
         }
         // var pos = 1;
         if(pos==1){
           manager();
         }
-        else{
+        else if(pos==0){
           employee();
         }
       })
@@ -70,26 +71,17 @@ function create(){
 
   var email = document.getElementById("newemail_field").value;
   var pass = document.getElementById("newpassword_field").value;
-  var pos = document.getElementById("newpos_field").value;
+  pos = document.getElementById("newpos_field").value;
 
   firebase.auth().createUserWithEmailAndPassword(email, pass).then((cred) => {
     // Signed in 
     var user = cred.user;
-    db.collection('employees').doc(cred.user.uid).set({
+    return db.collection('employees').doc(cred.user.uid).set({
         email: email,
         id: cred.user.uid,
         position: pos,
         tasks: ["task 1","task 2","task 3"],
     })
-    location.reload();
-    // ...
-    if(pos==1){
-      manager();
-    }
-    else{
-      console.log("EMPLOYEE");
-      employee();
-    }
   })
   .catch((error) => {
     var errorCode = error.code;
