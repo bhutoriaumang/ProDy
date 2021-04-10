@@ -25,7 +25,7 @@ firebase.auth().onAuthStateChanged(function(user) {
           manager();
         }
         else if(pos==0){
-          employee();
+          employee(user.uid);
         }
       })
     }
@@ -94,13 +94,32 @@ function logout(){
   firebase.auth().signOut();
 }
 
-function employee(){
+function employee(id){
   //employee page
   document.getElementById("user_div").style.display = "block";
   document.getElementById("login_div").style.display = "none";
   document.getElementById("sign_up").style.display = "none";
   document.getElementById("manager-login").style.display = "none";
   console.log("Employee");
+  db.collection('employees').where("id","==",id).onSnapshot(snapshot =>{
+    let changes = snapshot.docChanges();
+    console.log(changes);
+    changes.forEach(change => {
+      let data = change.doc.data();
+      console.log(data);
+      let tasks = data.tasks;
+      let index = 0;
+      var list = document.getElementById('tasks');
+      const li_parent = document.createElement('li');
+      while(index<tasks.length){
+        const li = document.createElement('li');
+        li.innerHTML = tasks[index];
+        list.appendChild(li);
+        index++;
+      }
+    })
+  })
+  
 }
 
 
@@ -131,19 +150,17 @@ function manager(){
         butn.style.height = "2px";
         butn.value = index;
         butn.onclick = function(){
-          var ele = db.collection('employees').doc(""+data.id+"");
+          var ele = db.collection('employees').doc(data.id);
           let t = [];
           let k =0;
           while(k<tasks.length){
             if(k == this.value){
-              console.log("Continue");
               k++;
               continue;
             }
             t.push(tasks[k]);
             k++;
           }
-          console.log(t);
           ele.update({
             tasks: t
           });
@@ -157,14 +174,23 @@ function manager(){
       button.innerHTML = "Add Task";
       button.className = "inner-button";
       button.onclick = function(){
+        button.style.display = 'none';
         const input = document.createElement('input');
         input.type = 'text';
         input.placeholder = 'Add a task';
         input.id = 'newtask';
         li_parent.appendChild(input);
         const butn = document.createElement('button');
+        const cross = document.createElement('button');
         butn.innerHTML = 'Add task';
+        butn.className = 'newtaskbutton';
+        cross.innerHTML = 'X';
+        cross.className = 'newtaskbutton';
         butn.onclick = function(){
+          if(input.value==''){
+            window.alert('No task specified');
+            return;
+          }
           var ele = db.collection('employees').doc(""+data.id+"");
           let t = tasks;
           t.push(input.value);
@@ -174,9 +200,15 @@ function manager(){
           });
           li_parent.style.display = 'none';
         };
+        cross.onclick = function(){
+          butn.style.display = 'none';
+          cross.style.display = 'none';
+          input.style.display = 'none';
+          button.style.display = 'block';
+        };
         li_parent.appendChild(butn);
+        li_parent.appendChild(cross);
       };
-      li_parent.appendChild(document.createTextNode(data.tasks[0]))
       li_parent.appendChild(li_child);
       li_parent.appendChild(button);
       list.appendChild(li_parent);
