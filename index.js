@@ -351,6 +351,7 @@ function project(){
   const button = document.createElement('button');
   const div = document.getElementById('newproject');
   button.innerHTML = 'Submit';
+  button.className = 'submitnewproject';
   button.onclick = function(){
     document.getElementById('Add_tasks').innerHTML = "";
     document.getElementById('Add_employee').innerHTML = "";
