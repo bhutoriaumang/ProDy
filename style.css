@@ -1,7 +1,8 @@
 body {
   background-image:url("https://i.redd.it/vdhgv54ndnj21.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center;
+  background-size:200% 200%;
   padding: 0px;
   margin: 0px;
   font-family: 'Montserrat', sans-serif;
@@ -17,8 +18,7 @@ body {
   border: 0px solid black;
   border-radius: 16px;
   background-color:rgba(255,0,0,0.2);
-
-}
+   }
 
 input, button , select{
   font-family: 'Nunito', sans-serif;
@@ -70,4 +70,19 @@ input, button , select{
   color: #5d8ffc;
   border: 1px solid #5d8ffc;
   cursor: pointer;
+}
+footer a {
+  text-decoration: none;
+  padding: 20px;
+  text-align: center;
+  float: left;
+  color: white;
+  font-size: 20px;
+}
+footer a:hover {
+  background-color: rgba(255,0,0,0.2);
+}
+footer {
+  background-color:rgba(256,0.2,0.2,0.2);
+  overflow: hidden;
 }
