@@ -147,7 +147,7 @@ function manager(){
           ele.update({
             tasks: t
           });
-          li.style.display = "none"
+          li_parent.style.display = "none"
         };
         li.appendChild(butn);
         li_child.appendChild(li);
@@ -157,7 +157,24 @@ function manager(){
       button.innerHTML = "Add Task";
       button.className = "inner-button";
       button.onclick = function(){
-        console.log(data);
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Add a task';
+        input.id = 'newtask';
+        li_parent.appendChild(input);
+        const butn = document.createElement('button');
+        butn.innerHTML = 'Add task';
+        butn.onclick = function(){
+          var ele = db.collection('employees').doc(""+data.id+"");
+          let t = tasks;
+          t.push(input.value);
+          console.log(t);
+          ele.update({
+            tasks: t
+          });
+          li_parent.style.display = 'none';
+        };
+        li_parent.appendChild(butn);
       };
       li_parent.appendChild(document.createTextNode(data.tasks[0]))
       li_parent.appendChild(li_child);
