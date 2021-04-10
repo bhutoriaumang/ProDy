@@ -236,6 +236,10 @@ function manager(){
       const div1 = document.createElement('div');
       const div2 = document.createElement('div');
       const div3 = document.createElement('div');
+      div.className = "Project";
+      div1.className = "Title_project";
+      div2.className = "tasks_project";
+      div3.className = "employees_project";
       const ul1  = document.createElement('ul');
       const ul2  = document.createElement('ul');
       div1.innerHTML = title;
@@ -258,9 +262,22 @@ function manager(){
       div3.appendChild(document.createTextNode("Employees"));
       div2.appendChild(ul1);
       div3.appendChild(ul2);
-      list.appendChild(div1);
-      list.appendChild(div2);
-      list.appendChild(div3);
+      div.appendChild(div1);
+      div.appendChild(div2);
+      div.appendChild(div3);
+      div2.style.display = 'none';
+      div3.style.display = 'none';
+      div.onclick = function(){
+        if(div2.style.display == 'none'){
+          div2.style.display = 'block';
+          div3.style.display = 'block';
+        }
+        else{
+          div2.style.display = 'none';
+          div3.style.display = 'none';
+        }
+      };
+      list.append(div);
     })
   })
 }
