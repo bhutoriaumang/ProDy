@@ -265,39 +265,53 @@ function manager(){
   })
 }
 
+var t = [];
+var e = [];
+
 function create_inputtask(){
+
   const div = document.getElementById("Add_tasks");
   const input = document.createElement('input');
   const button = document.createElement('button');
   input.placeholder = "Task";
   button.innerHTML = "Add task";
   button.onclick = function(){
+    t.push(input.value);
     create_inputtask();
-    console.log(input.value);
   }
   div.appendChild(input);
   div.appendChild(button);
-
 }
 function create_inputemployee(){
+
   const div = document.getElementById("Add_employee");
   const input = document.createElement('input');
   const button = document.createElement('button');
   input.placeholder = "Employee id";
   button.innerHTML = "Add employee";
   button.onclick = function(){
+    e.push(input.value);
     create_inputemployee();
-    console.log(input.value);
   }
   div.appendChild(input);
   div.appendChild(button);
-
 }
 
 function project(){
   const title_input = document.createElement('input');
-  create_inputtask();
-  create_inputemployee();
+  title_input.placeholder = 'Enter title of prorject';
+  t = [];
+  e = [];
+  var tasks = create_inputtask([]);
+  var employees = create_inputemployee([]);
+  const button = document.createElement('button');
+  const div = document.getElementById('newproject');
+  button.innerHTML = 'Submit';
+  button.onclick = function(){
+    createProject(title_input.value,t,e);
+  };
+  div.appendChild(title_input);
+  div.appendChild(button);
 }
 
 
@@ -305,7 +319,7 @@ function createProject(title,tasks,employees){
   db.collection('Projects').add({
     Title: title,
     tasks: tasks,
-    employees: employee
+    employees: employees
   }).then((docref)=>{
     console.log(docref.id);
   }).catch((error)=>{
