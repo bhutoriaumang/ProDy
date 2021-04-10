@@ -294,7 +294,12 @@ function create_inputtask(){
   input.placeholder = "Task";
   button.innerHTML = "Add task";
   button.onclick = function(){
-    t.push(input.value);
+    if(input.value==''){
+      window.alert('Empty field');
+    }
+    else{
+      t.push(input.value);
+    }
     divv.style.display = 'none';
     create_inputtask();
   }
@@ -332,7 +337,12 @@ function create_inputemployee(){
   })
   button.innerHTML = "Add employee";
   button.onclick = function(){
-    e.push(input.value);
+    if(input.value==''){
+      window.alert("Empty field");
+    }
+    else{
+      e.push(input.value);
+    }
     divv.style.display = 'none';
     create_inputemployee();
   }
@@ -353,11 +363,16 @@ function project(){
   button.innerHTML = 'Submit';
   button.className = 'submitnewproject';
   button.onclick = function(){
-    document.getElementById('Add_tasks').innerHTML = "";
-    document.getElementById('Add_employee').innerHTML = "";
-    title_input.remove();
-    button.remove();
-    createProject(title_input.value,t,e);
+    if(t.lenght==0 || e.length==0 || title_input==''){
+      window.alert("Incorrect fields");
+    }
+    else{
+      document.getElementById('Add_tasks').innerHTML = "";
+      document.getElementById('Add_employee').innerHTML = "";
+      title_input.remove();
+      button.remove();
+      createProject(title_input.value,t,e);
+    }
   };
   div.appendChild(title_input);
   div.appendChild(button);
