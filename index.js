@@ -22,10 +22,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
         // var pos = 1;
         if(pos==1){
-          manager();
+          manager(user.email);
         }
         else if(pos==0){
-          employee(user.uid);
+          employee(user.uid,user.email);
         }
       })
     }
@@ -95,12 +95,13 @@ function logout(){
   firebase.auth().signOut();
 }
 
-function employee(id){
+function employee(id,email){
   //employee page
   document.getElementById("user_div").style.display = "block";
   document.getElementById("login_div").style.display = "none";
   document.getElementById("sign_up").style.display = "none";
   document.getElementById("manager-login").style.display = "none";
+  document.getElementById('user_para_user').innerHTML+=email;
   console.log("Employee");
   var list = document.getElementById('project-details-employees');
   db.collection('employees').where("id","==",id).onSnapshot(snapshot =>{
@@ -278,11 +279,13 @@ function employee(id){
 // }
 
 
-function manager(){
+function manager(email){
   document.getElementById("user_div").style.display = "none";
   document.getElementById("login_div").style.display = "none";
   document.getElementById("sign_up").style.display = "none";
   document.getElementById("manager-login").style.display = "block";
+  document.getElementById('user_para_manager').innerHTML+=email;
+
 
   db.collection('Projects').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
