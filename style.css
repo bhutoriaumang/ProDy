@@ -126,3 +126,11 @@ nav{
 .Project{
   display: inline-block;
 }
+.logo{
+  text-align: end;
+  padding: 20px;
+}
+.links{
+  font-size: 20px;
+
+}
