@@ -102,13 +102,83 @@ function employee(id){
   document.getElementById("sign_up").style.display = "none";
   document.getElementById("manager-login").style.display = "none";
   console.log("Employee");
+  var list = document.getElementById('project-details-employees');
   db.collection('employees').where("id","==",id).onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
     console.log(changes);
     changes.forEach(change => {
-      db.collection('projects').onSnapshot(snapshot =>{
+      db.collection('Projects').onSnapshot(snapshot =>{
         let xx = snapshot.docChanges();
-        xx.forEach(x=>{
+        xx.forEach(x => {
+          let data = x.doc.data();
+          console.log(change.doc.data().id);
+          if(data.employees.includes(change.doc.data().id)){
+            let tasks = data.tasks;
+            let employees = data.employees;
+            let title = data.Title;
+            const li = document.createElement('li');
+            const div = document.createElement('div');
+            const div1 = document.createElement('div');//Title div
+            const div2 = document.createElement('div');//Tasks div
+            const div3 = document.createElement('div');//Employees div
+            div.className = "Project";
+            div1.className = "Title_project";
+            div2.className = "tasks_project";
+            div3.className = "employees_project";
+            const ul1  = document.createElement('ul');
+            const ul2  = document.createElement('ul');
+            div1.innerHTML = title;
+            let index = 0;
+            while(index<tasks.length){
+              console.log(tasks[index]);
+              const li = document.createElement('li');
+              li.appendChild(document.createTextNode(tasks[index]));
+              ul1.appendChild(li);
+              index++;
+            }
+            index = 0;
+            while(index<employees.length){
+              const li = document.createElement('li');
+              db.collection("employees").where('id','==',employees[index]).onSnapshot(snapshot=>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change=>{
+                  li.innerHTML = change.doc.data().email;
+                })
+              });
+              ul2.appendChild(li);
+              index++;
+            }
+            div2.appendChild(document.createTextNode("Tasks"));
+            div3.appendChild(document.createTextNode("Employees"));
+            div2.appendChild(ul1);
+            div3.appendChild(ul2);
+            const subdiv = document.createElement('div');
+            subdiv.appendChild(div2);
+            subdiv.appendChild(div3);
+            div.appendChild(div1);
+            const vl = document.createElement('div');
+            vl.style['border-left'] = '6px solid black';
+            vl.style.height = '100px';
+            div.appendChild(vl);
+            div.appendChild(subdiv);
+            div.style.display = 'inline-block'
+            div1.style.width = '300px'
+            subdiv.style.width = '300px'
+            div1.style.height = subdiv.style.height;
+            // div2.style.display = 'none';
+            // div3.style.display = 'none';
+            // div.onclick = function(){
+            //   if(div2.style.display == 'none'){
+            //     div2.style.display = 'block';
+            //     div3.style.display = 'block';
+            //   }
+            //   else{
+            //     div2.style.display = 'none';
+            //     div3.style.display = 'none';
+            //   }
+            // };
+            list.append(div);
+          }
         })
       })
     })
