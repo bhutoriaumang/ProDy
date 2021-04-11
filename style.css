@@ -43,9 +43,9 @@ input, button , select{
   margin-left: 5%;
   color: black;
   transition: 0.3s;
-  width: 87%;
+  width: 40%;
   padding: 12px 16px;
-  font-size:24px;
+  font-size:24px;;
 }
 .tasks_project{
   font-size: 20px;
@@ -124,5 +124,19 @@ nav{
 }
 
 .Project{
-  display: inline-block;
+  width: 650px;
+}
+.Title_project{
+  text-align: center;
+  width: 100%;
+}
+.tasks_project{
+  text-align: right;
+  width: 650px;
+}
+.employees_project{
+  text-align: left;
+}
+ul{
+  list-style-type: none;
 }

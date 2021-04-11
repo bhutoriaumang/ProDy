@@ -156,15 +156,13 @@ function employee(id){
             subdiv.appendChild(div2);
             subdiv.appendChild(div3);
             div.appendChild(div1);
-            const vl = document.createElement('div');
-            vl.style['border-left'] = '6px solid black';
-            vl.style.height = '100px';
-            div.appendChild(vl);
-            div.appendChild(subdiv);
-            div.style.display = 'inline-block'
-            div1.style.width = '300px'
-            subdiv.style.width = '300px'
-            div1.style.height = subdiv.style.height;
+            // const vl = document.createElement('div');
+            // vl.style['border-left'] = '6px solid black';
+            // vl.style.height = '100px';
+            // div.append(vl);
+            const hr = document.createElement('hr');
+            div.append(hr);
+            div.append(subdiv);
             // div2.style.display = 'none';
             // div3.style.display = 'none';
             // div.onclick = function(){
