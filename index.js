@@ -433,7 +433,8 @@ function create_inputemployee(){
 
 function project(){
   const title_input = document.createElement('input');
-  title_input.placeholder = 'Enter title of prorject';
+  title_input.placeholder = 'Enter title of project';
+  title_input.className='inputtitle';
   t = [];
   e = [];
   create_inputtask([]);
