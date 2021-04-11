@@ -122,3 +122,7 @@ nav{
   background-color:rgba(260,0.2,0.2,0.2);
   overflow: hidden;
 }
+
+.Project{
+  display: inline-block;
+}
