@@ -111,7 +111,6 @@ function employee(id){
         let xx = snapshot.docChanges();
         xx.forEach(x => {
           let data = x.doc.data();
-          console.log(change.doc.data().id);
           if(data.employees.includes(change.doc.data().id)){
             let tasks = data.tasks;
             let employees = data.employees;

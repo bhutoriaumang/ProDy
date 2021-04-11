@@ -107,7 +107,7 @@ footer a,nav a {
   color: white;
   font-size: 20px;
 }
-footer a:hover, nav a:hover {
+footer a:hover, nav a:hover ,.logoutbutton:hover, .createproject:hover, .task_selection_button:hover, .employee_selection_button:hover, .submitnewproject:hover{
   background-color: rgba(255,0,0,0.2);
 }
 footer {
@@ -208,10 +208,16 @@ ul{
   display: block;
   width: 15%;
 }
+
+
 .inputtitle{
   padding: 15px;
   border: 10px;
   border-radius: 12px;
   width:33%
 
+}
+
+.Project{
+  margin-left: 31%;
 }
